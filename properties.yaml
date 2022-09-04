@@ -1,0 +1,36 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mftproperties
+  namespace: enfo
+data:
+  source-agent.properties: |
+    agentQMgr=AGENT.SOURCE
+    agentQMgrPort=1414
+    agentDesc=
+    agentQMgrHost=agent-source-ibm-mq
+    agentQMgrChannel=AGENT.FTE
+    agentName=SOURCE
+
+  dest-agent.properties: |
+    agentQMgr=AGENT.DEST
+    agentQMgrPort=1414
+    agentDesc=
+    agentQMgrHost=agent-dest-ibm-mq
+    agentQMgrChannel=AGENT.FTE
+    agentName=DEST
+
+  command.properties: |
+    connectionQMgrChannel=COMMAND.FTE
+    connectionQMgrPort=1414
+    connectionQMgrHost=command-ibm-mq
+    connectionQMgr=COMMAND
+
+  coord.properties: |
+    coordinationQMgr=COORD
+    coordinationQMgrHost=coordination-ibm-mq
+    coordinationQMgrChannel=COORD.FTE
+    coordinationQMgrPort=1414
+
+  installation.properties: |
+    defaultProperties=COORD

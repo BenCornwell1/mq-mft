@@ -1,0 +1,65 @@
+** From the source agent queue manager to the coordination queue manager
+* Source agent end
+DEFINE QLOCAL(COORD) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.SOURCE.COORD) CHLTYPE(SDR) CONNAME('coordination-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Coord end
+DEFINE CHANNEL(AGENT.SOURCE.COORD) CHLTYPE(RCVR)
+
+** From the dest agent queue manager to the coordination queue manager
+* Dest agent end
+DEFINE QLOCAL(COORD) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.DEST.COORD) CHLTYPE(SDR) CONNAME('coordination-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Coord end
+DEFINE CHANNEL(AGENT.DEST.COORD) CHLTYPE(RCVR)
+
+*** From the command queue manager to the source agent queue manager.
+* Command end
+DEFINE QLOCAL(AGENT.SOURCE) USAGE(XMITQ)
+DEFINE CHANNEL(COMMAND.AGENT.SOURCE) CHLTYPE(SDR) CONNAME('agent-source-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Source agent end
+DEFINE CHANNEL(COMMAND.AGENT.SOURCE) CHLTYPE(RCVR)
+
+*** From the command queue manager to the dest agent queue manager.
+* Command end
+DEFINE QLOCAL(AGENT.DEST) USAGE(XMITQ)
+DEFINE CHANNEL(COMMAND.AGENT.DEST) CHLTYPE(SDR) CONNAME('agent-dest-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Dest agent end
+DEFINE CHANNEL(COMMAND.AGENT.DEST) CHLTYPE(RCVR)
+
+*** From the source agent queue manager to the command queue manager (to enable feedback messages to be shown by the commands).
+* Source agent end
+DEFINE QLOCAL(COMMAND) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.SOURCE.COMMAND) CHLTYPE(SDR) CONNAME('command-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Command end
+DEFINE CHANNEL(AGENT.SOURCE.COMMAND) CHLTYPE(RCVR)
+
+*** From the dest agent queue manager to the command queue manager (to enable feedback messages to be shown by the commands).
+* Dest agent end
+DEFINE QLOCAL(COMMAND) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.DEST.COMMAND) CHLTYPE(SDR) CONNAME('command-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Command end
+DEFINE CHANNEL(AGENT.DEST.COMMAND) CHLTYPE(RCVR)
+
+*** From the command queue manager to the coordination queue manager
+* Command end
+DEFINE QLOCAL(COORD) USAGE(XMITQ)
+DEFINE CHANNEL(COMMAND.COORD) CHLTYPE(SDR) CONNAME('coordination-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Coord end
+DEFINE CHANNEL(COMMAND.COORD) CHLTYPE(RCVR)
+
+*** From the source agent queue manager to the destination queue manager
+* Source agent end
+DEFINE QLOCAL(AGENT.DEST) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.SOURCE.DEST) CHLTYPE(SDR) CONNAME('agent-dest-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Dest agent and
+DEFINE CHANNEL(AGENT.SOURCE.DEST) CHLTYPE(RCVR)
+
+*** From the destination queue manager to the source queue manager
+* Dest agent end
+DEFINE QLOCAL(AGENT.SOURCE) USAGE(XMITQ)
+DEFINE CHANNEL(AGENT.DEST.SOURCE) CHLTYPE(SDR) CONNAME('agent-source-ibm-mq(1414)') XMITQ(COORD) CONVERT(NO)
+* Source agent end
+DEFINE CHANNEL(AGENT.DEST.SOURCE) CHLTYPE(RCVR)
+
+
+

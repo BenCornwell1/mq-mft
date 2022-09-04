@@ -1,0 +1,144 @@
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  name: coordination
+  namespace: enfo
+spec:
+  license:
+    accept: true
+    license: L-RJON-CD3JKX
+    use: NonProduction
+  queueManager:
+    name: COORD
+    resources:
+      limits:
+        cpu: 500m
+      requests:
+        cpu: 500m
+    storage:
+      queueManager:
+        type: ephemeral
+    mqsc:
+      - configMap:
+          name: mftconfig
+          items:
+            - coord-setup.mqsc
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.3.0.0-r3
+  web:
+    enabled: true
+---
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  name: command
+  namespace: enfo
+spec:
+  license:
+    accept: true
+    license: L-RJON-CD3JKX
+    use: NonProduction
+  queueManager:
+    name: COMMAND
+    resources:
+      limits:
+        cpu: 2
+        memory: 1Gi
+      requests:
+        cpu: 500m
+    storage:
+      queueManager:
+        type: ephemeral
+    mqsc:
+      - configMap:
+          name: mftconfig
+          items:
+            - command-setup.mqsc
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.3.0.0-r3
+  web:
+    enabled: true
+---
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  name: agent-source
+  namespace: enfo
+spec:
+  license:
+    accept: true
+    license: L-RJON-CD3JKX
+    use: NonProduction
+  queueManager:
+    name: AGENT.SOURCE
+    resources:
+      limits:
+        cpu: 500m
+      requests:
+        cpu: 500m
+    mqsc:
+      - configMap:
+          name: mftconfig
+          items:
+            - agent-source-setup.mqsc
+    storage:
+      queueManager:
+        type: ephemeral
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.3.0.0-r3
+  web:
+    enabled: true
+---
+kind: QueueManager
+apiVersion: mq.ibm.com/v1beta1
+metadata:
+  name: agent-dest
+  namespace: enfo
+spec:
+  license:
+    accept: true
+    license: L-RJON-CD3JKX
+    use: NonProduction
+  queueManager:
+    name: AGENT.DEST
+    resources:
+      limits:
+        cpu: 500m
+      requests:
+        cpu: 500m
+    mqsc:
+      - configMap:
+          name: mftconfig
+          items:
+            - agent-dest-setup.mqsc
+    storage:
+      queueManager:
+        type: ephemeral
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.3.0.0-r3
+  web:
+    enabled: true

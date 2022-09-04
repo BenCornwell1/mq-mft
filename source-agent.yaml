@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: source-agent
+  namespace: enfo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: source-agent
+  template:
+    metadata:
+      labels:
+        app: source-agent
+    spec:
+      securityContext:
+        runAsUser: 998
+        fsGroup: 1000
+      imagePullSecrets:
+      - name: icr-private 
+      containers:
+        - name: agent
+          command: ["/opt/mqm/bin/fteStartAgent", "-F", "SOURCE"]
+          image: uk.icr.io/mq-mft/mq-mft
+          volumeMounts:
+            - name: agent-properties
+              mountPath: /var/mqm/mqft/config/COORD/agents/SOURCE
+            - name: command-coord-properties
+              mountPath: /var/mqm/mqft/config/COORD/
+            - name: installation-properties
+              mountPath: /var/mqm/mqft/installations/Installation1
+      volumes:
+        - name: agent-properties
+          configMap:
+            name: mftproperties
+            items:
+              - key: source-agent.properties
+                path: agent.properties
+        - name: command-coord-properties
+          configMap:
+            name: mftproperties
+            items:               
+              - key: command.properties
+                path: command.properties
+              - key: coord.properties
+                path: coordination.properties
+        - name: installation-properties
+          configMap:
+            name: mftproperties
+            items:
+              - key: installation.properties
+                path: installation.properties

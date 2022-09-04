@@ -1,0 +1,9 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: icr-private
+  namespace: enfo
+data:
+  .dockerconfigjson: >-
+    eyJhdXRocyI6eyJ1ay5pY3IuaW8iOnsidXNlcm5hbWUiOiJpYW1hcGlrZXkiLCJwYXNzd29yZCI6IjR2MFdJUmJxSjQ1X2JYMWtmbzhfRkhzS283WkF0dm9JRUdfOVBrX2FwOEE0IiwiYXV0aCI6ImFXRnRZWEJwYTJWNU9qUjJNRmRKVW1KeFNqUTFYMkpZTVd0bWJ6aGZSa2h6UzI4M1drRjBkbTlKUlVkZk9WQnJYMkZ3T0VFMCIsImVtYWlsIjoiIn19fQ==
+type: kubernetes.io/dockerconfigjson

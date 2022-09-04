@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+This XML document defines the sandbox locations that a user can read from and
+write to.  The 'userSandboxes' property controls the use of this file.  If you
+want the information in this file to be used, ensure this property is present
+and set to a value of 'true'.
+
+The access that a user has to the file system is determined using the following
+two steps:
+    1) Decide which set of rules apply to the user who requests the transfer.
+    2) Determine if the user is permitted to read or write file data based on
+    the set of rules identified in step 1.
+
+    An example sandbox document is as follows:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <tns:userSandboxes
+            xmlns:tns="http://wmqfte.ibm.com/UserSandboxes"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://wmqfte.ibm.com/UserSandboxes UserSandboxes.xsd">
+        <tns:agent>
+            <tns:sandbox user="account[0-9]" userPattern="regex">
+                <tns:read>
+                    <tns:include name="/home/user/**"/>
+                    <tns:exclude name="/home/user/private/**"/>
+                </tns:read>
+                <tns:write>
+                    <tns:include name="/home/user/output/**"/>
+                </tns:write>
+            </tns:sandbox>
+            <tns:sandbox user="guest">
+                <tns:read>
+                    <tns:include name="/home/user/public/**"/>
+                </tns:read>
+            </tns:sandbox>
+        </tns:agent>
+    </tns:userSandboxes>
+
+This example shows a sandbox document that allows access to the file system for
+any user making requests with an MQMD user name starting with 'account'
+followed by a digit, and also any user called 'guest'.  The levels of access
+vary. Users with names starting with 'account' have read access to all files
+and directories under '/home/user', with the exclusion of the
+'home/user/private' directory tree.  The 'account' users are also permitted to
+write files anywhere in the '/home/user/output' directory or subdirectories.
+Transfer requests that have a MQMD user name of 'guest' have more restricted
+access and can read from the '/home/user/public' directory and all its
+subdirectories only.
+
+As shown in the above example, a sandbox document is composed of an <agent>
+element that contains zero or more <sandbox> elements.  These elements describe
+which rules are applied to which users.  The 'user' attribute of the <sandbox>
+element is used to determine which requests the rules apply to.  The <user>
+element is a pattern that is used to match against the MQMD user of the
+request.  Matches are performed in the order that the <sandbox> elements are
+listed in this file.  The wildcard characters are asterisk (*), which
+represents zero or more characters and question mark (?), which represents
+exactly one character, unless you specify a 'userPattern="regex"' attribute as
+part of the <sandbox> element.  If you specify the 'userPattern="regex"'
+attribute or value, the 'user' attribute is interpreted as a regular
+expression.
+
+If none of the <sandbox> elements specified in this file match the MQMD user
+associated with the transfer request message, the transfer cannot access the
+file system.
+
+After a set of rules has been identified, these rules are used to determine
+which files, or data sets, can be read from or written to as part of the
+transfer.  Each rule can specify a <read> element, which identifies which files
+can be read, and a <write> element. which identifies which files can be
+written.  If you omit the <read> or <write> elements from a rule, it is assumed
+that the rule will not permit any reads or any writes, as appropriate.
+
+Each <read> or <write> element contains one or more patterns that are used to
+determine whether a file is in the sandbox and can be transferred.  Specify
+these patterns using the <include> and <exclude> elements: their 'name'
+attribute specifies the pattern.  For example:
+
+        ...
+        <tns:read>
+            <tns:include name="/home/user/**"/>
+            <tns:exclude name="/home/user/private/**"/>
+        </tns:read>
+        ...
+
+The include and exclude patterns are used by the agent to decide if it should
+allow files or data sets to be read from or written to.  An operation is
+allowed if the canonical file path or data set name matches at least one of the
+included patterns and exactly zero of the excluded patterns.
+
+The patterns specified using the 'name' attribute of the <include> and
+<exclude> elements use the path separators and conventions appropriate to the
+platform that the agent is running on.  If you specify relative paths, they
+are resolved relative to the 'transferRoot' property of the agent.
+
+The following characters are wildcards and have special meaning when you
+specify them as part of the 'name' attribute of the <include> and <exclude>
+elements:
+
+        *   A single asterisk matches zero or more characters at the directory
+            (or data set qualifier) level.
+        ?   A question mark matches exactly one character at the directory (or
+            data set qualifier) level.
+        **  Two asterisk characters match zero or more directory levels (or
+            data set qualifier levels).
+
+Also, paths that end with a path separator have an implicit '**' added to the
+end of the path.  So '/home/user/' is the same as '/home/user/**'.  For
+example:
+
+        /**/test/**        matches any file that has a 'test' directory in its
+                           path.
+
+        /test/file?        matches any file inside the '/test' directory that
+                           starts with the 'file' followed by any single
+                           character.
+
+        c:\test\*.txt      matches any file inside the 'c:\test' directory with
+                           a .txt extension.
+
+        c:\test\**\*.txt   matches any file inside the 'c:\test' directory, or
+                           one of its subdirectories that has a .txt extension.
+
+        //'TEST.*.DATA'    matches any data set that has the first qualifier
+                           of 'TEST', has any second qualifier, and a third
+                           qualifier of 'DATA'.
+-->
+
+<tns:userSandboxes
+        xmlns:tns="http://wmqfte.ibm.com/UserSandboxes"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://wmqfte.ibm.com/UserSandboxes UserSandboxes.xsd">
+
+	<tns:agent>
+	
+    	<!-- Place your sandbox rules here -->
+    	
+	</tns:agent>
+	
+</tns:userSandboxes>
