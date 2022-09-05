@@ -12,7 +12,7 @@ spec:
     name: COORD
     resources:
       limits:
-        cpu: 500m
+        cpu: 2
       requests:
         cpu: 500m
     storage:
@@ -85,7 +85,7 @@ spec:
     name: AGENT.SOURCE
     resources:
       limits:
-        cpu: 500m
+        cpu: 2
       requests:
         cpu: 500m
     mqsc:
@@ -121,7 +121,7 @@ spec:
     name: AGENT.DEST
     resources:
       limits:
-        cpu: 500m
+        cpu: 2
       requests:
         cpu: 500m
     mqsc:

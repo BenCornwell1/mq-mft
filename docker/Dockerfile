@@ -1,5 +1,6 @@
 FROM quay.io/centos/centos:stream9
-ADD IBM_MQ* /tmp/mq/
+ARG INSTALL_FILE
+ADD $INSTALL_FILE /tmp/mq/
 WORKDIR /tmp/mq/MQServer
 RUN ./mqlicense.sh -accept
 RUN yum install -y util-linux
@@ -16,9 +17,8 @@ RUN rpm -Uvh \
     MQSeriesFTService-9.3.0-0.x86_64.rpm \
     MQSeriesFTTools-9.3.0-0.x86_64.rpm
 RUN rm -rf /tmp/mq
-RUN mkdir /var/mqm/mqft/logs/COORD
-RUN mkdir /var/mqm/mqft/logs/COORD/agents
-RUN mkdir /var/mqm/mqft/logs/COORD/agents/SOURCE
-RUN mkdir /var/mqm/mqft/logs/COORD/agents/DEST
-RUN chmod -R 777 /var/mqm/mqft/logs/COORD/
+COPY startup.sh /var/mqm/
+RUN chmod 775 /var/mqm/startup.sh
+
+
 

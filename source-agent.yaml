@@ -20,7 +20,7 @@ spec:
       - name: icr-private 
       containers:
         - name: agent
-          command: ["/opt/mqm/bin/fteStartAgent", "-F", "SOURCE"]
+          command: ["/var/mqm/startup.sh", "COORD", "SOURCE"]
           image: uk.icr.io/mq-mft/mq-mft
           volumeMounts:
             - name: agent-properties

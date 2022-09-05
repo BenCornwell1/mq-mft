@@ -18,6 +18,9 @@
     -agentQMgrChannel AGENT.FTE
 
 
-/opt/mqm/bin/fteCreateTransfer -sa SOURCE -da DEST -dd /tmp /tmp/moo.txt
+/opt/mqm/bin/fteCreateTransfer -sa SOURCE -da DEST -dd /tmp /tmp/test.txt
 
-/opt/mqm/bin/fteCreateTransfer -sa SOURCE -sm AGENT.SOURCE -da DEST -dm AGENT.DEST -dd /tmp /tmp/moo.txt
+/opt/mqm/bin/fteCreateTransfer -sa SOURCE -sm AGENT.SOURCE -da DEST -dm AGENT.DEST -dd /tmp /tmp/test.txt
+
+/opt/mqm/bin/fteCreateTransfer -trace com.ibm.wmqfte=all -tracePath /tmp -sa SOURCE -sm AGENT.SOURCE -da DEST -dm AGENT.DEST -dd /tmp /tmp/test.txt
+

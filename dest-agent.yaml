@@ -20,7 +20,7 @@ spec:
       - name: icr-private 
       containers:
         - name: agent
-          command: ["/opt/mqm/bin/fteStartAgent", "-F", "DEST"]
+          command: ["/var/mqm/startup.sh", "COORD", "DEST"]
           image: uk.icr.io/mq-mft/mq-mft
           volumeMounts:
             - name: agent-properties
