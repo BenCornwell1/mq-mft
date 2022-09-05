@@ -1,2 +1,6 @@
+# Registry API key
+4v0WIRbqJ45_bX1kfo8_FHsKo7ZAtvoIEG_9Pk_ap8A4
+
+# Docker login command
 docker login uk.icr.io -u iamapikey -p 4v0WIRbqJ45_bX1kfo8_FHsKo7ZAtvoIEG_9Pk_ap8A4
 

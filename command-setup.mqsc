@@ -1,2 +1,0 @@
-DEFINE CHANNEL('COMMAND.FTE') CHLTYPE(SVRCONN) DESCR('Command QM connection') TRPTYPE(TCP) REPLACE
-SET CHLAUTH('COMMAND.FTE') TYPE(BLOCKUSER) DESCR('Rule to override *MQADMIN blockuser on this channel') USERLIST('nobody') ACTION(replace)
